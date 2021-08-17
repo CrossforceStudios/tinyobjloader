@@ -1,29 +1,19 @@
-sources = {
-   "loader_example.cc",
-   }
 
--- premake4.lua
-solution "TinyObjLoaderSolution"
-   configurations { "Release", "Debug" }
 
-   if (os.is("windows")) then
-      platforms { "x32", "x64" }
-   else
-      platforms { "native", "x32", "x64" }
-   end
+-- premake5.lua
+project "tinyobjloader"
+  kind "StaticLib"
+  language "C++"
+  cppdialect "C++17"
+  staticruntime "on"
 
-   -- A project defines one build target
-   project "tinyobjloader"
-      kind "ConsoleApp"
-      language "C++"
-      files { sources }
+  targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+  objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-      configuration "Debug"
-         defines { "DEBUG" } -- -DDEBUG
-         flags { "Symbols" }
-         targetname "loader_example_debug"
+  files 
+  {
+      ""
+  }
 
-      configuration "Release"
-         -- defines { "NDEBUG" } -- -NDEBUG
-         flags { "Symbols", "Optimize" }
-         targetname "loader_example"
+  filter "system:windows"
+    systemversion "latest"
